@@ -14,6 +14,7 @@ This repository is part of our [Starter Kit](https://github.com/agile-lab-dev/wi
 - [Using this library](#using-this-library)
 - [Building](#building)
 - [API specification](docs/API.md)
+- [Compatibility matrix](docs/compatibility_matrix.md)
 - [License](#license)
 
 
@@ -90,48 +91,41 @@ pre-commit install
 
 ## Using this library
 
-Add the following dependency on your `pom.xml`:
-
-```xml
-<dependency>
-    <groupId>com.witboost.provisioning</groupId>
-    <artifactId>java-tech-adapter-framework-core</artifactId>
-    <version>${env.FRAMEWORK_VERSION}</version>
-</dependency>
-```
-
-Where `${env.FRAMEWORK_VERSION}` is the library version.
-
-To be able to use Spring Boot, you need to set Spring Boot 2.3.2 as a parent on your `pom.xml` and setup the actuator dependencies:
+Add the following on your `pom.xml`:
 
 ```xml
 <project ...>
+    ...
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>3.2.3</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    
+    ...
     <dependencies>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-actuator</artifactId>
+            <groupId>com.witboost.provisioning</groupId>
+            <artifactId>java-tech-adapter-framework-core</artifactId>
+            <version>X.X.X</version>
         </dependency>
     </dependencies>
+    ...
 </project>
 ```
+
+Where `X.X.X` is the library version you desire to use.
 
 ### Implementing server logic
 
 The Java Tech Adapter Framework provides four interfaces to be implemented in order to plug your business logic into the provisioning workflow. These are:
 
-`ProvisionService`: Provides the business logic for component provision, unprovision, update access control, and reverse provisioning.
-`ComponentValidationService`: Provides the business logic for component validation, executed for validation and (un)provisioning operations.
-`ComponentClassProvider`: Interface that maps a component's `useCaseTemplateId` with a Class that represents the Component model, allowing to use extensions of the provided Components.
-`SpecificClassProvider`: Interface that maps a component's `useCaseTemplateId` with a Class that represents the Specific model.
+- `ProvisionService`: Provides the business logic for component provision, unprovision, update access control, and reverse provisioning.
+- `ComponentValidationService`: Provides the business logic for component validation, executed for validation and (un)provisioning operations.
+- `ComponentClassProvider`: Interface that maps a component's `useCaseTemplateId` with a Class that represents the Component model, allowing to use extensions of the provided Components.
+- `SpecificClassProvider`: Interface that maps a component's `useCaseTemplateId` with a Class that represents the Specific model.
 
-As of the current version, all four interfaces are mandatory, providing an failure default implementation for each method. To understand the details to implement these interfaces, check the guide. 
+As of the current version, all four interfaces are mandatory, providing a failure default implementation for each method. To understand the details to implement these interfaces, check the [implementation and migration guide](docs/usage.md). 
 
 ## Building
 
@@ -140,10 +134,16 @@ As of the current version, all four interfaces are mandatory, providing an failu
 - Java 17
 - Apache Maven 3.9+
 
-**Version:** the version is set dynamically via an environment variable, `FRAMEWORK_VERSION`. Make sure you have it exported, even for local development. Example:
+**Version:** the version is set dynamically via Maven configuration variables following the [CI Friendly Versions](https://maven.apache.org/maven-ci-friendly.html) setup, so be sure to configure your environment to include the Maven variable `revision` set to the version. For example, you can use the `MAVEN_OPTS` environment variable to set up this as:
 
 ```bash
-export FRAMEWORK_VERSION=0.0.0-SNAPHSOT
+export MAVEN_OPTS="-Drevision=0.0.0-SNAPHSOT"
+```
+
+*Note:* When running in the CI/CD pipeline the version for the project is automatically computed using information gathered from Git, using branch name and tags. Unless you are on a release branch `1.2.x` or a tag `v1.2.3` it will end up being `0.0.0`. You can follow this branch/tag convention or update the version computation to match your preferred strategy. When running locally if you do not care about the version (ie, nothing gets published or similar) you can manually set the Maven configuration variable `revision` to avoid warnings and oddly-named artifacts; as an example you can set it to the build using a timestamp like this:
+
+```bash
+export MAVEN_OPTS="-Drevision=$(date +%Y%m%d-%H%M%S)"
 ```
 
 **Build:**
@@ -172,24 +172,12 @@ mvn spotbugs:check
 mvn test
 ```
 
-**Artifacts & Docker image:** the project leverages Maven for packaging. Build artifacts (normal and fat jar) with:
+**Artifacts:** the project leverages Maven for packaging. Build artifacts with:
 
 ```bash
-mvn package spring-boot:repackage
+mvn package
 ```
 
-The Docker image can be built with:
-
-```bash
-docker build .
-```
-
-More details can be found [here](docs/docker.md).
-
-*Note:* when running in the CI/CD pipeline the version for the project is automatically computed using information gathered from Git, using branch name and tags. Unless you are on a release branch `1.2.x` or a tag `v1.2.3` it will end up being `0.0.0`. You can follow this branch/tag convention or update the version computation to match your preferred strategy. When running locally if you do not care about the version (ie, nothing gets published or similar) you can manually set the environment variable `FRAMEWORK_VERSION` to avoid warnings and oddly-named artifacts; as an example you can set it to the build time like this:
-```bash
-export FRAMEWORK_VERSION=$(date +%Y%m%d-%H%M%S);
-```
 
 **CI/CD:** the pipeline is based on GitLab CI as that's what we use internally. It's configured by the `.gitlab-ci.yaml` file in the root of the repository. You can use that as a starting point for your customizations.
 

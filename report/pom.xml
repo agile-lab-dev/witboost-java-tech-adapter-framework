@@ -6,14 +6,12 @@
     <parent>
         <groupId>com.witboost.provisioning</groupId>
         <artifactId>java-tech-adapter-framework</artifactId>
-        <version>${env.FRAMEWORK_VERSION}</version>
+        <version>${revision}</version>
     </parent>
 
     <packaging>jar</packaging>
 
-
     <artifactId>report</artifactId>
-    <version>${env.FRAMEWORK_VERSION}</version>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>

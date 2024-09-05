@@ -1,0 +1,3 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.witboost.provisioning.autoconfigure.ProvisionAutoConfiguration,\
+com.witboost.provisioning.autoconfigure.ValidationAutoConfiguration

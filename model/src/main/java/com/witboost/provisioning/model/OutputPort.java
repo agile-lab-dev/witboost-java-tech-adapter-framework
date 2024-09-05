@@ -2,6 +2,7 @@ package com.witboost.provisioning.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.witboost.provisioning.model.common.Constants;
 import java.util.List;
 import java.util.Optional;
 import lombok.Getter;
@@ -30,4 +31,8 @@ public class OutputPort<T> extends Component<T> {
     private List<JsonNode> tags;
     private Optional<JsonNode> sampleData;
     private Optional<JsonNode> semanticLinking;
+
+    public OutputPort() {
+        this.kind = Constants.OUTPUTPORT_KIND;
+    }
 }

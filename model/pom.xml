@@ -6,7 +6,7 @@
     <parent>
         <groupId>com.witboost.provisioning</groupId>
         <artifactId>java-tech-adapter-framework</artifactId>
-        <version>${env.FRAMEWORK_VERSION}</version>
+        <version>${revision}</version>
     </parent>
 
     <artifactId>java-tech-adapter-framework-model</artifactId>

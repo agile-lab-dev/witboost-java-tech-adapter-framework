@@ -1,0 +1,91 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  description: Catalog Info test
+  name: domain.systemname.0.catalog-info-test
+  tags:
+    - outputport
+spec:
+  domain: domain:domain
+  instanceOf: componenttype:default/outputport
+  lifecycle: experimental
+  owner: user:john.doe_witboost.com
+  system: system:domain.systemname.0
+  type: outputport
+  mesh:
+    fullyQualifiedName:
+    kind: outputport
+    name: Catalog Info test
+    description: Catalog Info test
+    infrastructureTemplateId: urn:dmb:itm:snowflake-provisioner:0
+    useCaseTemplateId: urn:dmb:utm:snowflake-outputport-template:0.0.0
+    version: 0.0.0
+    dependsOn: []
+    tags: []
+    outputPortType: SQL
+    technology: Snowflake
+    platform: Snowflake
+    sampleData: {}
+    semanticLinking: []
+    dataContract:
+      schema:
+        - name: id 
+          dataType: TEXT
+          tags: []
+        - name: name
+          dataType: TEXT
+          tags: []
+      SLA:
+        intervalOfChange: 2BD
+        timeliness: 2BD
+        upTime: 99.9%
+      termsAndConditions: Can be used for production purposes.
+    dataSharingAgreement:
+      billing: None.
+      confidentiality: None.
+      intendedUsage: Any downstream use cases.
+      lifeCycle: Data loaded every two days and typically never deleted.
+      limitations: Needs joining with other datasets (eg customer data) for most analytical
+        use cases.
+      purpose: Foundational data for downstream sue cases.
+      security: Platform standard security policies.
+    specific:
+      database: DB
+      schema: SCHEMA
+      tableName: TABLE_NAME
+witboost:
+  parameters:
+    billing: None.
+    confidentiality: None.
+    creationDate: '2024-08-01T10:25:11.223Z'
+    updatedDate: '2024-08-02T13:03:18.045Z'
+    database: DB
+    schema: SCHEMA
+    tableName: TABLE_NAME
+    dataproduct: domain:single.systemname.0
+    dependsOn: []
+    name: Catalog Info test
+    description: Catalog Info test
+    developmentGroup: user:john.doe_witboost.com
+    domain: domain:single
+    entityRef: component:default/domain.systemname.0.catalog-info-test
+    hiddenKind: storage
+    identifier: domain.systemname.0.catalog-info-test
+    intendedUsage: Any downstream use cases.
+    intervalOfChange: 2BD
+    lifeCycle: Data loaded every two days and typically never deleted.
+    limitations: Needs joining with other datasets (eg customer data) for most analytical
+      use cases.
+    modifiedByRef: edittemplate:default/edit-snowflake-outputport-template.1
+    purpose: Foundational data for downstream sue cases.
+    schemaColumns:
+      - dataType: TEXT
+        name: id
+      - dataType: TEXT
+        name: name
+    security: Platform standard security policies.
+    tags: []
+    termsAndConditions: Can be used for production purposes.
+    timeliness: 2BD
+    upTime: 99.9%
+    useCaseTemplateID: template:default/snowflake-outputport-template.1

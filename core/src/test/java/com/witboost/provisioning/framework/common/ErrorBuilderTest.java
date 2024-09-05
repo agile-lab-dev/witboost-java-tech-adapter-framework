@@ -1,5 +1,6 @@
 package com.witboost.provisioning.framework.common;
 
+import static com.witboost.provisioning.framework.common.ErrorConstants.PLATFORM_TEAM_SOLUTION;
 import static com.witboost.provisioning.framework.common.TestFixtures.buildConstraintViolation;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -16,50 +17,27 @@ import org.junit.jupiter.api.Test;
 class ErrorBuilderTest {
 
     @Test
-    void buildRequestValidationErrorDefaultMessage() {
-        FailedOperation failedOperation = new FailedOperation(List.of(
-                new Problem("Error1 - No cause"),
-                new Problem("Error2 - cause", new Exception("Cause message")),
-                new Problem("Error3 - solutions", Optional.empty(), Set.of("Try again"))));
-
-        var error = ErrorBuilder.buildRequestValidationError(
-                Optional.empty(), failedOperation, Optional.empty(), Optional.empty());
-        assertEquals(
-                error.getUserMessage(),
-                "Validation on the received descriptor failed, check the error details for more information");
-        assertNotNull(error.getMoreInfo());
-        assertNull(error.getInputErrorField());
-        assertNull(error.getInput());
-        assertEquals(error.getErrors(), error.getMoreInfo().getProblems());
-        assertEquals(error.getMoreInfo().getProblems().size(), 3);
-        assertEquals(error.getMoreInfo().getSolutions().size(), 2);
-        assertTrue(error.getMoreInfo().getSolutions().contains("Try again"));
-        assertEquals(
-                error.getMoreInfo().getProblems(),
-                List.of("Error1 - No cause", "Error2 - cause: Cause message", "Error3 - solutions"));
-    }
-
-    @Test
     void buildRequestValidationErrorCustomMessage() {
-        FailedOperation failedOperation = new FailedOperation(List.of(
-                new Problem("Error1 - No cause"),
-                new Problem("Error2 - cause", new Exception("Cause message")),
-                new Problem("Error3 - solutions", Optional.empty(), Set.of("Try again"))));
+        FailedOperation failedOperation = new FailedOperation(
+                "Error! See info",
+                List.of(
+                        new Problem("Error1 - No cause"),
+                        new Problem("Error2 - cause", new Exception("Cause message")),
+                        new Problem("Error3 - solutions", Set.of("Try again"))));
 
-        var customMessage = "Error! See info";
+        var error = ErrorBuilder.buildRequestValidationError(failedOperation);
 
-        var error = ErrorBuilder.buildRequestValidationError(
-                Optional.of(customMessage), failedOperation, Optional.empty(), Optional.empty());
-        assertEquals(customMessage, error.getUserMessage());
-        assertNotNull(error.getMoreInfo());
-        assertNull(error.getInputErrorField());
-        assertNull(error.getInput());
-        assertEquals(error.getErrors(), error.getMoreInfo().getProblems());
-        assertEquals(error.getMoreInfo().getProblems().size(), 3);
-        assertEquals(error.getMoreInfo().getSolutions().size(), 2);
-        assertTrue(error.getMoreInfo().getSolutions().contains("Try again"));
+        assertTrue(error.getUserMessage().isPresent());
+        assertEquals(failedOperation.message(), error.getUserMessage().get());
+        assertTrue(error.getMoreInfo().isPresent());
+        assertTrue(error.getInputErrorField().isEmpty());
+        assertTrue(error.getInput().isEmpty());
+        assertEquals(error.getErrors(), error.getMoreInfo().get().getProblems());
+        assertEquals(error.getMoreInfo().get().getProblems().size(), 3);
+        assertEquals(error.getMoreInfo().get().getSolutions().size(), 2);
+        assertTrue(error.getMoreInfo().get().getSolutions().contains("Try again"));
         assertEquals(
-                error.getMoreInfo().getProblems(),
+                error.getMoreInfo().get().getProblems(),
                 List.of("Error1 - No cause", "Error2 - cause: Cause message", "Error3 - solutions"));
     }
 
@@ -78,10 +56,11 @@ class ErrorBuilderTest {
 
         Assertions.assertEquals(2, requestValidationError.getErrors().size());
         Assertions.assertEquals(expectedErrors, Set.copyOf(requestValidationError.getErrors()));
+        assertTrue(requestValidationError.getMoreInfo().isPresent());
         Assertions.assertEquals(
                 requestValidationError.getErrors(),
-                requestValidationError.getMoreInfo().getProblems());
-        Assertions.assertEquals(expectedMessage, requestValidationError.getUserMessage());
+                requestValidationError.getMoreInfo().get().getProblems());
+        Assertions.assertEquals(Optional.of(expectedMessage), requestValidationError.getUserMessage());
     }
 
     @Test
@@ -96,12 +75,15 @@ class ErrorBuilderTest {
         var expectedErrors = Set.of("path.to.field is not valid");
 
         Assertions.assertEquals(1, requestValidationError.getErrors().size());
-        Assertions.assertEquals("path.to.field", requestValidationError.getInputErrorField());
+        Assertions.assertTrue(requestValidationError.getInputErrorField().isPresent());
+        Assertions.assertEquals(
+                "path.to.field", requestValidationError.getInputErrorField().get());
         Assertions.assertEquals(expectedErrors, Set.copyOf(requestValidationError.getErrors()));
+        assertTrue(requestValidationError.getMoreInfo().isPresent());
         Assertions.assertEquals(
                 requestValidationError.getErrors(),
-                requestValidationError.getMoreInfo().getProblems());
-        Assertions.assertEquals(expectedMessage, requestValidationError.getUserMessage());
+                requestValidationError.getMoreInfo().get().getProblems());
+        Assertions.assertEquals(Optional.of(expectedMessage), requestValidationError.getUserMessage());
     }
 
     @Test
@@ -111,14 +93,13 @@ class ErrorBuilderTest {
         var actual = ErrorBuilder.buildSystemError(Optional.empty(), exception);
 
         assertEquals(
-                "An unexpected error occurred while processing the request. Check the error details for more information",
+                Optional.of(
+                        "An unexpected error occurred while processing the request. Check the error details for more information"),
                 actual.getUserMessage());
-        assertNotNull(actual.getMoreInfo());
-        assertTrue(actual.getMoreInfo().getProblems().contains(actual.getError()));
-        assertTrue(actual.getMoreInfo().getProblems().contains(exception.getMessage()));
-        assertEquals(
-                actual.getMoreInfo().getSolutions(),
-                List.of("Please try again and if the problem persists contact the platform team."));
+        assertTrue(actual.getMoreInfo().isPresent());
+        assertTrue(actual.getMoreInfo().get().getProblems().contains(actual.getError()));
+        assertTrue(actual.getMoreInfo().get().getProblems().contains(exception.getMessage()));
+        assertEquals(actual.getMoreInfo().get().getSolutions(), List.of(PLATFORM_TEAM_SOLUTION));
     }
 
     @Test
@@ -128,12 +109,10 @@ class ErrorBuilderTest {
 
         var actual = ErrorBuilder.buildSystemError(Optional.of(message), exception);
 
-        assertEquals(message, actual.getUserMessage());
-        assertNotNull(actual.getMoreInfo());
-        assertTrue(actual.getMoreInfo().getProblems().contains(actual.getError()));
-        assertTrue(actual.getMoreInfo().getProblems().contains(exception.getMessage()));
-        assertEquals(
-                actual.getMoreInfo().getSolutions(),
-                List.of("Please try again and if the problem persists contact the platform team."));
+        assertEquals(Optional.of(message), actual.getUserMessage());
+        assertTrue(actual.getMoreInfo().isPresent());
+        assertTrue(actual.getMoreInfo().get().getProblems().contains(actual.getError()));
+        assertTrue(actual.getMoreInfo().get().getProblems().contains(exception.getMessage()));
+        assertEquals(actual.getMoreInfo().get().getSolutions(), List.of(PLATFORM_TEAM_SOLUTION));
     }
 }

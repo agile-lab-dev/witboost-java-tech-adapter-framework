@@ -57,13 +57,13 @@ interface ProvisionService {
   Either<FailedOperation, ProvisionInfo> provision(ProvisionOperationRequest<?, ? extends Specific> operationRequest);
   Either<FailedOperation, ProvisionInfo> unprovision(ProvisionOperationRequest<?, ? extends Specific> operationRequest);
   Either<FailedOperation, ProvisionInfo> updateAcl(AccessControlOperationRequest<?, ? extends Specific> operationRequest);
-  Either<FailedOperation, ReverseProvisionInfo> reverseProvision(ReverseProvisionOpRequest<? extends Specific> operationRequest);
+  Either<FailedOperation, ReverseProvisionInfo> reverseProvision(ReverseProvisionOperationRequest<? extends Specific> operationRequest);
 }
 ```
 
 - **Sync validation service interface**
 ```java
-interface ValidationService {
+interface ComponentValidationService {
   Either<FailedOperation, Void> validate(OperationRequest<?, ? extends Specific> operationRequest, OperationType operationType);
 }
 ```
@@ -72,7 +72,7 @@ interface ValidationService {
 ```java
 interface SpecificClassProvider {
   Option<Class<? extends Specific>> get(String useCaseTemplateId);
-  Optiol<Class<? extends Specific>> getReverseProvisioning(String useCaseTemplateId);
+  Optiol<Class<? extends Specific>> getReverseProvisioningParams(String useCaseTemplateId);
 }
 ```
 
@@ -121,6 +121,7 @@ The flow for a certain operation follows roughly the steps already existing on t
 2. The request is parsed to the framework model, creating an Operation Request.
 3. The component is validated by calling the validation business logic.
 4. The operation is performed by calling the provisioning business logic.
+   - The provision service to be called is chosen by looking at the `kind` field on the component to provision, and for the reverse provision the `spec.mesh.kind` field on the input catalog-info.
 5. The framework returns the result to the user
 
 For asynchronous operations, steps are added to handle the submission on the tasks' pool.

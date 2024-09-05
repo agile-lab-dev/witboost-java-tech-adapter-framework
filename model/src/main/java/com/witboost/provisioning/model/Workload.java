@@ -2,6 +2,7 @@ package com.witboost.provisioning.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.witboost.provisioning.model.common.Constants;
 import java.util.List;
 import java.util.Optional;
 import lombok.Getter;
@@ -24,4 +25,8 @@ public class Workload<T> extends Component<T> {
     private Optional<String> connectionType;
     private List<JsonNode> tags;
     private List<String> readsFrom;
+
+    public Workload() {
+        this.kind = Constants.WORKLOAD_KIND;
+    }
 }

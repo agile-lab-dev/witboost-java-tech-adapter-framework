@@ -4,13 +4,12 @@ include:
     file: 'common/witboost.helm.gitlab-ci.yml'
   - template: Security/SAST.gitlab-ci.yml
   - template: Security/Secret-Detection.gitlab-ci.yml
-  - template: Jobs/Container-Scanning.gitlab-ci.yml
 
 image: maven:3.9.4-eclipse-temurin-17
 
 variables:
-  MAVEN_CLI_OPTS: "-s ci_settings.xml --batch-mode"
-  MAVEN_OPTS: "-Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository"
+  MAVEN_CLI_OPTS: "--batch-mode"
+  MAVEN_OPTS: "-Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository -Drevision=$VERSION"
 
 cache:
   paths:
@@ -33,7 +32,6 @@ setup:
     - !reference [.witboost.helm.clone-scripts, script]
     - !reference [.witboost.helm.get-version, script]
     - echo "VERSION=${VERSION}" >> vars.env
-    - echo "FRAMEWORK_VERSION=${VERSION}" >> vars.env
   artifacts:
     reports:
       dotenv: vars.env
@@ -151,7 +149,7 @@ package:
     paths:
       - common/target/*.jar
 
-publish:
-  stage: publish
-  script:
-    - mvn -DskipTests=true deploy -s ci_settings.xml
+#publish:
+#  stage: publish
+#  script:
+#    - mvn -DskipTests=true deploy -s ci_settings.xml

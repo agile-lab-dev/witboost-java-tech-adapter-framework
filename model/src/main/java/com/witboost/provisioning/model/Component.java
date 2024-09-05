@@ -1,8 +1,6 @@
 package com.witboost.provisioning.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonSubTypes;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.databind.JsonNode;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
@@ -11,38 +9,38 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+/**
+ * Abstract class representing a component entity. Default implementations are provided for the base components {@link StorageArea}, {@link Workload}, {@link OutputPort}
+ * or it can be implemented
+ * @param <T> Component type parameter representing the type of the {@code specific} field
+ * @implNote When implementing yourself this class, the child <b>must</b> have a single type parameter
+ * referring to the {@code specific} attribute field, and the generic must be resolver when instancing the class. This
+ * is done to allow  the developer to inject the generic type using a class provider.
+ */
 @Getter
 @Setter
 @ToString
 @JsonIgnoreProperties(ignoreUnknown = true)
-@JsonTypeInfo(
-        use = JsonTypeInfo.Id.NAME,
-        include = JsonTypeInfo.As.EXISTING_PROPERTY,
-        property = "kind",
-        visible = true)
-@JsonSubTypes({
-    @JsonSubTypes.Type(value = OutputPort.class, name = "outputport"),
-    @JsonSubTypes.Type(value = StorageArea.class, name = "storage"),
-    @JsonSubTypes.Type(value = Workload.class, name = "workload")
-})
 public abstract class Component<T> {
 
     @NotNull
-    private String id;
+    protected String id;
 
     @NotNull
-    private String name;
-
-    private Optional<String> fullyQualifiedName;
+    protected String name;
 
     @NotNull
-    private String description;
+    protected Optional<String> fullyQualifiedName = Optional.empty();
 
     @NotNull
-    private String kind;
+    protected String description;
 
     @NotNull
-    private @Valid T specific;
+    protected String kind;
 
-    private Optional<JsonNode> info;
+    @NotNull
+    protected @Valid T specific;
+
+    @NotNull
+    protected Optional<JsonNode> info = Optional.empty();
 }

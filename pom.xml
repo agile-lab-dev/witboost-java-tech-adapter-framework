@@ -15,12 +15,14 @@
 
     <groupId>com.witboost.provisioning</groupId>
     <artifactId>java-tech-adapter-framework</artifactId>
-    <version>${env.FRAMEWORK_VERSION}</version>
+    <version>${revision}</version>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <spring-boot.version>3.2.3</spring-boot.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
 
     <licenses>
@@ -31,6 +33,26 @@
         </license>
     </licenses>
 
+    <developers>
+        <developer>
+            <name>Nicolò Bidotti</name>
+            <email>nicolo.bidotti@agilelab.it</email>
+            <organization>Agile Lab s.r.l</organization>
+            <organizationUrl>https://www.witboost.com</organizationUrl>
+        </developer>
+        <developer>
+            <name>Lorenzo Pirazzini</name>
+            <email>lorenzo.pirazzini@agilelab.it</email>
+            <organization>Agile Lab s.r.l</organization>
+            <organizationUrl>https://www.witboost.com</organizationUrl>
+        </developer>
+    </developers>
+
+    <scm>
+        <connection>scm:git:git://github.com/agile-lab-dev/witboost-java-tech-adapter-framework.git</connection>
+        <developerConnection>scm:git:ssh://github.com:agile-lab-dev/witboost-java-tech-adapter-framework.git</developerConnection>
+        <url>https://github.com/agile-lab-dev/witboost-java-tech-adapter-framework</url>
+    </scm>
 
     <dependencyManagement>
         <dependencies>
@@ -71,8 +93,32 @@
     </dependencyManagement>
 
     <build>
-
         <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>flatten-maven-plugin</artifactId>
+                <version>1.6.0</version>
+                <configuration>
+                </configuration>
+                <executions>
+                    <!-- enable flattening -->
+                    <execution>
+                        <id>flatten</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>flatten</goal>
+                        </goals>
+                    </execution>
+                    <!-- ensure proper cleanup -->
+                    <execution>
+                        <id>flatten.clean</id>
+                        <phase>clean</phase>
+                        <goals>
+                            <goal>clean</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
             <!-- SpotBugs Plugin -->
             <plugin>
                 <groupId>com.github.spotbugs</groupId>
@@ -182,26 +228,5 @@
             <url>https://jitpack.io</url>
         </pluginRepository>
     </pluginRepositories>
-
-    <repositories>
-        <repository>
-            <id>gitlab-maven</id>
-            <!--suppress UnresolvedMavenProperty -->
-            <url>${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/maven</url>
-        </repository>
-    </repositories>
-
-    <distributionManagement>
-        <repository>
-            <id>gitlab-maven</id>
-            <!--suppress UnresolvedMavenProperty -->
-            <url>${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/maven</url>
-        </repository>
-        <snapshotRepository>
-            <id>gitlab-maven</id>
-            <!--suppress UnresolvedMavenProperty -->
-            <url>${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/maven</url>
-        </snapshotRepository>
-    </distributionManagement>
 
 </project>

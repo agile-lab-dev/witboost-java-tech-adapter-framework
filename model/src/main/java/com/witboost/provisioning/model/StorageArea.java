@@ -2,6 +2,7 @@ package com.witboost.provisioning.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.witboost.provisioning.model.common.Constants;
 import java.util.List;
 import java.util.Optional;
 import lombok.Getter;
@@ -22,4 +23,8 @@ public class StorageArea<T> extends Component<T> {
     private Optional<String> technology;
     private Optional<String> storageType;
     private List<JsonNode> tags;
+
+    public StorageArea() {
+        this.kind = Constants.STORAGE_KIND;
+    }
 }
