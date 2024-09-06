@@ -52,7 +52,39 @@ dataProduct:
       creationDate: 2023-06-12T12:52:11.737Z
       startDate: 2023-06-12T12:52:11.737Z
       dataContract:
-        schema: []
+        schema:
+          - name: id
+            description: Country ID
+            dataType: BIGINT
+            constraint: PRIMARY_KEY
+            tags:
+              - tagFQN: PII
+                source: Glossary
+                labelType: Manual
+                state: Confirmed
+          - name: name
+            description: Country name
+            dataType: STRING
+            dataLength: 65536
+            constraint: NOT_NULL
+            tags: [ ]
+          - name: population
+            description: Country population
+            dataType: BIGINT
+            constraint: NOT_NULL
+            tags: [ ]
+          - name: country_gdp
+            description: Country's GDP
+            dataType: DECIMAL
+            precision: 20
+            scale: 4
+            tags: [ ]
+        termsAndConditions: Can be used for production purposes.
+        endpoint: null
+        SLA:
+          intervalOfChange: 2BD
+          timeliness: 2BD
+          upTime: 99.9%
       dataSharingAgreement: {}
       tags: []
       sampleData: {}

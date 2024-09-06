@@ -8,6 +8,7 @@ import com.witboost.provisioning.model.common.FailedOperation;
 import com.witboost.provisioning.model.common.Problem;
 import io.vavr.control.Either;
 import io.vavr.control.Option;
+import jakarta.validation.Valid;
 import java.util.Collections;
 import java.util.Optional;
 import lombok.AllArgsConstructor;
@@ -16,8 +17,8 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public class OperationRequest<T, U> {
-    private final DataProduct<T> dataProduct;
-    private final Optional<Component<U>> component;
+    private final @Valid DataProduct<T> dataProduct;
+    private final Optional<@Valid Component<U>> component;
 
     public Either<FailedOperation, String> getComponentKindToProvision() {
 

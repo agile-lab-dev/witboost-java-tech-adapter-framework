@@ -2,6 +2,8 @@ package com.witboost.provisioning.model;
 
 import static io.vavr.control.Either.left;
 
+import com.fasterxml.jackson.annotation.JsonAnyGetter;
+import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.witboost.provisioning.model.common.FailedOperation;
@@ -12,11 +14,18 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+/**
+ * POJO representing a Data Product and used to parse data product descriptors. It provides the most used fields
+ * and an {@code additionalProperties} map for additional non-mapped fields
+ * @param <T> {@code specific} field type. These must not be resolved if inheriting the class, as the parameter injection
+ *           is performed by the Framework
+ */
 @Getter
 @Setter
 @ToString
@@ -75,7 +84,7 @@ public class DataProduct<T> {
     private Optional<JsonNode> billing = Optional.empty();
 
     @NotNull
-    private List<JsonNode> tags;
+    private List<Tag> tags;
 
     @NotNull
     private @Valid T specific;
@@ -84,6 +93,10 @@ public class DataProduct<T> {
 
     @NotNull
     private List<JsonNode> components;
+
+    @JsonAnySetter
+    @JsonAnyGetter
+    private Map<String, JsonNode> additionalProperties;
 
     public Option<JsonNode> getComponentToProvision(String componentId) {
         return Option.ofOptional(Optional.ofNullable(componentId).flatMap(comp -> components.stream()

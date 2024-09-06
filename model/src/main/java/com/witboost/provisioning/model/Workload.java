@@ -1,7 +1,6 @@
 package com.witboost.provisioning.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.witboost.provisioning.model.common.Constants;
 import java.util.List;
 import java.util.Optional;
@@ -17,13 +16,13 @@ public class Workload<T> extends Component<T> {
 
     private String version;
     private String infrastructureTemplateId;
-    private Optional<String> useCaseTemplateId;
+    private Optional<String> useCaseTemplateId = Optional.empty();
     private List<String> dependsOn;
-    private Optional<String> platform;
-    private Optional<String> technology;
-    private Optional<String> workloadType;
-    private Optional<String> connectionType;
-    private List<JsonNode> tags;
+    private Optional<String> platform = Optional.empty();
+    private Optional<String> technology = Optional.empty();
+    private Optional<String> workloadType = Optional.empty();
+    private Optional<String> connectionType = Optional.empty();
+    private List<Tag> tags;
     private List<String> readsFrom;
 
     public Workload() {

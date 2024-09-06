@@ -78,6 +78,9 @@ public class ParserTest {
 
         var actualRes = Parser.parseComponent(component, StorageArea.class, Specific.class);
         Assertions.assertTrue(actualRes.isRight());
+        Assertions.assertEquals(
+                "customValue",
+                actualRes.get().getAdditionalProperties().get("customProperty").textValue());
     }
 
     @Test
