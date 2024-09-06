@@ -143,6 +143,9 @@ coverage-jdk17:
 
 package:
   stage: package
+  before_script:
+    - apt-get update
+    - apt-get install gnupg -y
   script:
     - echo -n "$MAVEN_GPG_KEY" | base64 -d | gpg --batch --import
     - mvn -DskipTests=true $MAVEN_CLI_OPTS -P release package
@@ -154,6 +157,9 @@ package:
 
 publish:
   stage: publish
+  before_script:
+    - apt-get update
+    - apt-get install gnupg -y
   script:
     - echo -n "$MAVEN_GPG_KEY" | base64 -d | gpg --batch --import
     - mvn -DskipTests=true $MAVEN_CLI_OPTS -P release deploy
