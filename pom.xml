@@ -316,6 +316,9 @@
                         <configuration>
                             <publishingServerId>central</publishingServerId>
                             <autoPublish>false</autoPublish>
+                            <excludeArtifacts>
+                                <artifact>report</artifact>
+                            </excludeArtifacts>
                         </configuration>
                     </plugin>
                 </plugins>
