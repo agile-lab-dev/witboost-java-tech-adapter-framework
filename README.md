@@ -107,14 +107,14 @@ Add the following on your `pom.xml`:
         <dependency>
             <groupId>com.witboost.provisioning</groupId>
             <artifactId>java-tech-adapter-framework-core</artifactId>
-            <version>X.X.X</version>
+            <version>X.X.X-Y.Y.Y</version>
         </dependency>
     </dependencies>
     ...
 </project>
 ```
 
-Where `X.X.X` is the library version you desire to use.
+Where `X.X.X-Y.Y.Y` is the library version you desire to use. See [Publishing](#publishing) for more information about this versions.
 
 ### Implementing server logic
 
@@ -180,6 +180,10 @@ mvn package
 
 
 **CI/CD:** the pipeline is based on GitLab CI as that's what we use internally. It's configured by the `.gitlab-ci.yaml` file in the root of the repository. You can use that as a starting point for your customizations.
+
+## Publishing
+
+Publishing is done via Maven publishing to internal Gitlab repositories and to Maven Central. We use a combination of semantic versioning, containing a version of the framework followed by the supported Tech Adapter OpenAPI specification. This way, a specific version of a framework may look like: `1.0.0-2.2.0`. This means, that the version `1.0.0` of the Java Tech Adapter Framework supports the version `2.2.0` of the Tech Adapter OpenAPI specification.
 
 ## License
 

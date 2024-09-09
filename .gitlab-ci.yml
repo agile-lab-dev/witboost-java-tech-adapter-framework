@@ -31,7 +31,7 @@ setup:
   script:
     - !reference [.witboost.helm.clone-scripts, script]
     - !reference [.witboost.helm.get-version, script]
-    - echo "VERSION=${VERSION}" >> vars.env
+    - echo "VERSION=${VERSION}-2.2.0" >> vars.env
   artifacts:
     reports:
       dotenv: vars.env
