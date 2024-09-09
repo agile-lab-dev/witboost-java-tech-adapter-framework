@@ -25,14 +25,14 @@ To start working with the Java Tech Adapter Framework, add the following  to you
         <dependency>
             <groupId>com.witboost.provisioning</groupId>
             <artifactId>java-tech-adapter-framework-core</artifactId>
-            <version>X.X.X</version>
+            <version>X.X.X-Y.Y.Y</version>
         </dependency>
     </dependencies>
     ...
 </project>
 ```
 
-Where `X.X.X` is the desired version of the framework.
+Where `X.X.X-Y.Y.Y` is the desired version of the framework. See [Publishing](../README.md#publishing) for more information about versioning.
 
 ## Bootstrapping your Tech Adapter
 
