@@ -17,6 +17,11 @@
     <artifactId>java-tech-adapter-framework</artifactId>
     <version>${revision}</version>
 
+    <name>Java Tech Adapter Framework</name>
+    <description>A Spring Boot framework to streamline the experience of creating Witboost Tech Adapters by
+        standardizing the API layer, descriptor parsing, base configuration, and more.</description>
+    <url>https://witboost.com/</url>
+
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
@@ -99,6 +104,8 @@
                 <artifactId>flatten-maven-plugin</artifactId>
                 <version>1.6.0</version>
                 <configuration>
+                    <updatePomFile>true</updatePomFile>
+                    <flattenMode>resolveCiFriendliesOnly</flattenMode>
                 </configuration>
                 <executions>
                     <!-- enable flattening -->
