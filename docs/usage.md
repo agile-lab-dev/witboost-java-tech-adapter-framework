@@ -39,7 +39,7 @@ Where `X.X.X-Y.Y.Y` is the desired version of the framework. See [Publishing](..
 After including the dependencies, define you Main class as follows:
 
 ```java
-import com.witboost.provisioning.framework.JavaTechAdapterFramework;
+import com.witboost.provisioning.JavaTechAdapterFramework;
 
 @SpringBootApplication (scanBasePackageClasses = {JavaTechAdapterFramework.class, Main.class})
 @ConfigurationPropertiesScan(basePackageClasses = {JavaTechAdapterFramework.class, Main.class})
@@ -52,7 +52,7 @@ public class Main {
 }
 ```
 
-By adding `com.witboost.provisioning.framework.JavaTechAdapterFramework` on the Spring Boot annotations, you are instructing your application to scan the framework package as well for the service beans, regardless of your package definition.
+By adding `com.witboost.provisioning.JavaTechAdapterFramework` on the Spring Boot annotations, you are instructing your application to scan the framework package as well for the service beans, regardless of your package definition.
 
 With a single class, you now have a fully-functional Tech Adapter that receives and parses requests. At this point however, it will always return some kind of error, as it falls into its default configuration, so the next step is to implement your own business logic: 
 

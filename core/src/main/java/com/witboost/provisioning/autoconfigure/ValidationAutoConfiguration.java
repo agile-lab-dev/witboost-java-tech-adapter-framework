@@ -28,7 +28,7 @@ public class ValidationAutoConfiguration {
 
     @Bean
     @ConditionalOnMissingBean
-    public ValidationConfiguration validationConfiguration() {
+    public ValidationConfiguration defaultValidationConfiguration() {
         return new ValidationConfiguration(
                 new ComponentValidationService() {},
                 new ComponentValidationService() {},
@@ -37,13 +37,13 @@ public class ValidationAutoConfiguration {
 
     @Bean
     @ConditionalOnMissingBean
-    public SpecificClassProvider specificMapper() {
+    public SpecificClassProvider defaultSpecificMapper() {
         return SpecificClassProviderImpl.builder().build();
     }
 
     @Bean
     @ConditionalOnMissingBean
-    public ComponentClassProvider componentClassProvider() {
+    public ComponentClassProvider defaultComponentClassProvider() {
         return ComponentClassProviderImpl.builder().build();
     }
 }

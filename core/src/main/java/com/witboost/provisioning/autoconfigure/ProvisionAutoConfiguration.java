@@ -22,14 +22,14 @@ public class ProvisionAutoConfiguration {
 
     @Bean
     @ConditionalOnMissingBean
-    public ProvisionConfiguration provisionConfiguration() {
+    public ProvisionConfiguration defaultProvisionConfiguration() {
         return new ProvisionConfiguration(
                 new ProvisionService() {}, new ProvisionService() {}, new ProvisionService() {});
     }
 
     @Bean
     @ConditionalOnMissingBean
-    ProvisionService provisionService() {
+    ProvisionService defaultProvisionService() {
         return new ProvisionService() {};
     }
 }

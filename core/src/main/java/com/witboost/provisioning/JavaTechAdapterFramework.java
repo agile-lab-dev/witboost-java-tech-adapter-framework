@@ -1,4 +1,4 @@
-package com.witboost.provisioning.framework;
+package com.witboost.provisioning;
 
 /**
  * Empty class to be used as a hook to enable package scanning by Spring Boot. It is intended to be part of the {@code @SpringBootApplication scanBasePackageClasses} and

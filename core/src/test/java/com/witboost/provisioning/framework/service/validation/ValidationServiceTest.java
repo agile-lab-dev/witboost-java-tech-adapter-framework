@@ -34,7 +34,8 @@ public class ValidationServiceTest {
     ComponentClassProvider componentClassProvider;
 
     @Spy
-    ValidationConfiguration validationConfiguration = new ValidationAutoConfiguration().validationConfiguration();
+    ValidationConfiguration validationConfiguration =
+            new ValidationAutoConfiguration().defaultValidationConfiguration();
 
     @Mock
     SpecificClassProvider specificClassProvider;

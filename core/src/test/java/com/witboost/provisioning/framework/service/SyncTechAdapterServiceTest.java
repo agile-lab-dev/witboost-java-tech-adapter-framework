@@ -39,7 +39,8 @@ public class SyncTechAdapterServiceTest {
     private ValidationService validationService;
 
     @Spy
-    private ProvisionConfiguration provisionConfiguration = new ProvisionAutoConfiguration().provisionConfiguration();
+    private ProvisionConfiguration provisionConfiguration =
+            new ProvisionAutoConfiguration().defaultProvisionConfiguration();
 
     @InjectMocks
     private SyncTechAdapterService techAdapterService;

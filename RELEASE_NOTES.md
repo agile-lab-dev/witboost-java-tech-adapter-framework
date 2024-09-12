@@ -2,9 +2,45 @@
 
 All notable changes to this project will be documented in this file.
 
-## v2.2.0
+## v1.0.0-2.2.0
 
 ### Commits
+
+- **[WIT-3064] Tech Adapter Framework autoconfiguration is not set up correctly**
+  > 
+  > ##### Bug fixes
+  > 
+  > * Fixes a bug where autoconfiguration would not be scanned by Spring Boot following the recommended usage
+  >
+  > ##### Related issue
+  >
+  > Closes WIT-3064
+  >
+
+- **[WIT-2944] Publish java tech adapter framework to maven central**
+  > 
+  > ##### Bug fixes
+  > 
+  > Fixes on Central publish
+  > 
+  > ##### Related issue
+  > 
+  > Closes WIT-2944
+  > 
+  > 
+
+- **[WIT-2944] Publish java tech adapter framework to maven central**
+  > 
+  > ##### New features and improvements
+  > 
+  > * Added Maven profile to publish artifacts on Sonatype Central with all necessary plugins
+  > * Reintroduces the publish step on the CI
+  > 
+  > ##### Related issue
+  > 
+  > Closes WIT-2944
+  > 
+  >
 
 - **[WIT-2983] Add support for data contract and tags on java framework**
   > 
@@ -17,7 +53,7 @@ All notable changes to this project will be documented in this file.
   > 
   > Closes WIT-2983
   > 
-  > 
+  >
 
 - **[WIT-2829] Implement the sync java tech adapter framework**
   > 
@@ -70,5 +106,3 @@ All notable changes to this project will be documented in this file.
   > Closes WIT-2826
   > 
   > 
-
-- **Add README**
