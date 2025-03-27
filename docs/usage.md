@@ -5,6 +5,7 @@ The Framework has been designed as a plug-and-play library, providing autoconfig
 - [Dependencies](#dependencies)
 - [Boostrap a new Tech Adapter](#bootstrapping-your-tech-adapter)
 - [Interface implementation](#interface-implementation)
+- [Parser capabilities](#parser-capabilities)
 - [Migrating from the old Java Scaffold project](#migrating-from-the-old-java-scaffold-project)
 
 ## Dependencies
@@ -17,7 +18,7 @@ To start working with the Java Tech Adapter Framework, add the following  to you
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.2.3</version>
+        <version>3.4.4</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     ...
@@ -146,6 +147,10 @@ class DemoConfiguration {
 ```
 
 The appropriate `ValidationService` is chosen following the same logic as the provision service logic, using the `Component` kind attribute. Non configured validation services will return an error explaining to the user that the specific component is not supported by your Tech Adapter, so no need to implement your own services that return an error.
+
+## Parser capabilities
+
+The Java Tech Adapter Framework provides a `Parser` class with methods tailored to parse YAML descriptors. This class provides ready-to-use methods that have an ObjectMapper configured for the descriptors used in Witboost. Use this class to parse components when needed (e.g. other components not included already parsed in the operation request like dependency components), or to parse other objects like custom Data Contracts, and more.
 
 ## Migrating from the old Java Scaffold project
 

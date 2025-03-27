@@ -175,7 +175,7 @@ The API layer shall handle the errors through a Spring Boot Exception Handler `@
 
 ### Liveness and readiness
 
-The framework must provide base liveness and readiness endpoints to be used when deploying a Tech Adapter on a cluster. These are provided [out-of-the-box](https://docs.spring.io/spring-boot/docs/3.2.3/reference/html/actuator.html#actuator.endpoints.kubernetes-probes) by Spring Boot Actuator by setting `management.endpoint.health.probes.enabled=true`.
+The framework must provide base liveness and readiness endpoints to be used when deploying a Tech Adapter on a cluster. These are provided [out-of-the-box](https://docs.spring.io/spring-boot/reference/actuator/endpoints.html#actuator.endpoints.kubernetes-probes) by Spring Boot Actuator by setting `management.endpoint.health.probes.enabled=true`.
 
 
 ## Security

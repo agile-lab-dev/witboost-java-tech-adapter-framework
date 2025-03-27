@@ -99,7 +99,7 @@ Add the following on your `pom.xml`:
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.2.3</version>
+        <version>3.4.4</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     ...
@@ -114,7 +114,7 @@ Add the following on your `pom.xml`:
 </project>
 ```
 
-Where `X.X.X-Y.Y.Y` is the library version you desire to use. See [Publishing](#publishing) for more information about this versions.
+Where `X.X.X-Y.Y.Y` is the library version you desire to use. See [Publishing](#publishing) for more information about this version.
 
 ### Implementing server logic
 
