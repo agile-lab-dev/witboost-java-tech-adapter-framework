@@ -2,7 +2,27 @@
 
 All notable changes to this project will be documented in this file.
 
-## v1.0.0-2.2.0
+## v1.1.0-2.2.0
+
+### Commits
+
+- **Resolve WIT-4091 "Java tech adapter framework tomcat vulnerability"**
+  > 
+  > ##### New features and improvements
+  > 
+  > * Updated Spring Boot to version 3.4.4 to fix CVE-2025-24813
+  > * Update dependency check plugin to 12.1.0
+  > * Enables automatic publishing to Maven Central after artifact upload
+  > 
+  > ##### Related issue
+  > 
+  > Closes WIT-4091
+  > 
+  > 
+
+- **Updated README**
+
+## v1.0.0-2.2.0 - 2024-09-12
 
 ### Commits
 
@@ -11,11 +31,12 @@ All notable changes to this project will be documented in this file.
   > ##### Bug fixes
   > 
   > * Fixes a bug where autoconfiguration would not be scanned by Spring Boot following the recommended usage
-  >
+  > 
   > ##### Related issue
-  >
+  > 
   > Closes WIT-3064
-  >
+  > 
+  > 
 
 - **[WIT-2944] Publish java tech adapter framework to maven central**
   > 
@@ -40,7 +61,7 @@ All notable changes to this project will be documented in this file.
   > 
   > Closes WIT-2944
   > 
-  >
+  > 
 
 - **[WIT-2983] Add support for data contract and tags on java framework**
   > 
@@ -53,7 +74,7 @@ All notable changes to this project will be documented in this file.
   > 
   > Closes WIT-2983
   > 
-  >
+  > 
 
 - **[WIT-2829] Implement the sync java tech adapter framework**
   > 
