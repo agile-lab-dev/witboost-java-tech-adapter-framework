@@ -2,9 +2,34 @@
 
 All notable changes to this project will be documented in this file.
 
-## v1.1.0-2.2.0
+## v1.1.1-2.2.0
 
 ### Commits
+
+- **[WIT-4790] Java tech adapter framework tomcat vulnerability**
+  > 
+  > ##### New features and improvements
+  > 
+  > * Updated Spring Boot to version 3.4.8 to fix CVE-2025-31651
+  > 
+  > 
+  > Closes WIT-4790
+
+## v1.1.0-2.2.0 - 2025-03-31
+
+### Commits
+
+- **Resolve WIT-4140 "Release Java Tech Adapter Framework 1.1.0"**
+  > 
+  > ##### New features and improvements
+  > 
+  > * Releases version 1.1.0-2.2.0 of Java Tech Adapter Framework
+  > 
+  > ##### Related issue
+  > 
+  > Closes WIT-4140
+  > 
+  > 
 
 - **Resolve WIT-4091 "Java tech adapter framework tomcat vulnerability"**
   > 
