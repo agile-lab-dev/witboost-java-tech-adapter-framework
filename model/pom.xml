@@ -10,7 +10,8 @@
     </parent>
 
     <artifactId>java-tech-adapter-framework-model</artifactId>
-
+    <name>java-tech-adapter-framework-model</name>
+    
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
