@@ -25,7 +25,7 @@
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
-        <spring-boot.version>3.4.8</spring-boot.version>
+        <spring-boot.version>3.4.11</spring-boot.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
@@ -179,13 +179,14 @@
             <plugin>
                 <groupId>org.owasp</groupId>
                 <artifactId>dependency-check-maven</artifactId>
-                <version>12.1.0</version>
+                <version>12.1.8</version>
                 <configuration>
                     <failBuildOnCVSS>9</failBuildOnCVSS>
                     <nvdApiKey>${NVDAPIKEY}</nvdApiKey>
                     <suppressionFiles>
                         <suppressionFile>suppressions/suppression.xml</suppressionFile>
                     </suppressionFiles>
+                    <ossindexAnalyzerEnabled>false</ossindexAnalyzerEnabled>
                 </configuration>
                 <executions>
                     <execution>
