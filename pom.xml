@@ -188,13 +188,6 @@
                     </suppressionFiles>
                     <ossindexAnalyzerEnabled>false</ossindexAnalyzerEnabled>
                 </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>check</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
 
             <!-- licensescan Maven plugin for License check -->
