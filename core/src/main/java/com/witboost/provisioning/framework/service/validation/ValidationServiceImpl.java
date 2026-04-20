@@ -83,6 +83,7 @@ public class ValidationServiceImpl implements ValidationService {
         var componentKindToProvision = eitherComponentKind.get();
 
         Optional<JsonNode> optionalEnrichedDescriptor = Optional.empty();
+
         if (provisioningRequest.getLatestEnrichedDescriptor().isPresent()) {
             var stringEnrichedDescriptor =
                     provisioningRequest.getLatestEnrichedDescriptor().get();
@@ -102,7 +103,8 @@ public class ValidationServiceImpl implements ValidationService {
                 baseOperationRequest.getDataProduct(),
                 baseOperationRequest.getComponent(),
                 provisioningRequest.getRemoveData(),
-                optionalEnrichedDescriptor);
+                optionalEnrichedDescriptor,
+                provisioningRequest.getDescriptor());
 
         logger.info("Sending parsed operation request to ValidationService");
         logger.debug("Sending parsed operation request {} to ValidationService", operationRequest);

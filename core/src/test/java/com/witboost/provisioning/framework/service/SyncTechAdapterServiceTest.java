@@ -49,8 +49,8 @@ public class SyncTechAdapterServiceTest {
     public void testValidateOk() {
         ProvisioningRequest provisioningRequest = new ProvisioningRequest();
         when(validationService.validate(provisioningRequest, OperationType.VALIDATE))
-                .thenReturn(
-                        Either.right(new ProvisionOperationRequest<JsonNode, Specific>(null, false, Optional.empty())));
+                .thenReturn(Either.right(
+                        new ProvisionOperationRequest<JsonNode, Specific>(null, false, Optional.empty(), "")));
         var expectedRes = ValidationInfo.valid();
 
         var actualRes = techAdapterService.validate(provisioningRequest);
@@ -86,7 +86,7 @@ public class SyncTechAdapterServiceTest {
 
         when(validationService.validate(provisioningRequest, OperationType.PROVISION))
                 .thenReturn(Either.right(new ProvisionOperationRequest<JsonNode, Specific>(
-                        null, new OutputPort<>(), false, Optional.empty())));
+                        null, new OutputPort<>(), false, Optional.empty(), "")));
 
         var exception = Assertions.assertThrows(
                 TechAdapterValidationException.class, () -> techAdapterService.provision(provisioningRequest));
@@ -100,7 +100,7 @@ public class SyncTechAdapterServiceTest {
                 new ProvisioningRequest(DescriptorKind.COMPONENT_DESCRIPTOR, "", false);
 
         var operationRequest =
-                new ProvisionOperationRequest<JsonNode, Specific>(null, new Workload<>(), false, Optional.empty());
+                new ProvisionOperationRequest<JsonNode, Specific>(null, new Workload<>(), false, Optional.empty(), "");
         var provisionInfo =
                 com.witboost.provisioning.model.status.ProvisionInfo.builder().build();
 
@@ -135,7 +135,7 @@ public class SyncTechAdapterServiceTest {
 
         when(validationService.validate(provisioningRequest, OperationType.UNPROVISION))
                 .thenReturn(Either.right(new ProvisionOperationRequest<JsonNode, Specific>(
-                        null, new OutputPort<>(), false, Optional.empty())));
+                        null, new OutputPort<>(), false, Optional.empty(), "")));
 
         var exception = Assertions.assertThrows(
                 TechAdapterValidationException.class, () -> techAdapterService.unprovision(provisioningRequest));
@@ -148,8 +148,8 @@ public class SyncTechAdapterServiceTest {
         ProvisioningRequest provisioningRequest =
                 new ProvisioningRequest(DescriptorKind.COMPONENT_DESCRIPTOR, "", false);
 
-        var operationRequest =
-                new ProvisionOperationRequest<JsonNode, Specific>(null, new OutputPort<>(), false, Optional.empty());
+        var operationRequest = new ProvisionOperationRequest<JsonNode, Specific>(
+                null, new OutputPort<>(), false, Optional.empty(), "");
         var provisionInfo =
                 com.witboost.provisioning.model.status.ProvisionInfo.builder().build();
 

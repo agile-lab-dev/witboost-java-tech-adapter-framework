@@ -14,20 +14,20 @@ class ProvisionOperationRequestTest {
     @Test
     void testOptionalConstructors() {
         var provisionOptionalComponent =
-                new ProvisionOperationRequest<>(new DataProduct<>(), true, JsonNodeFactory.instance.objectNode());
+                new ProvisionOperationRequest<>(new DataProduct<>(), true, JsonNodeFactory.instance.objectNode(), "");
         Assertions.assertTrue(provisionOptionalComponent.getComponent().isEmpty());
         Assertions.assertTrue(
                 provisionOptionalComponent.getLatestEnrichedDescriptor().isPresent());
 
         var provisionOptionalEnrichedDescriptor = new ProvisionOperationRequest<>(
-                new DataProduct<>(), true, Optional.of(JsonNodeFactory.instance.objectNode()));
+                new DataProduct<>(), true, Optional.of(JsonNodeFactory.instance.objectNode()), "");
         Assertions.assertTrue(provisionOptionalEnrichedDescriptor.getComponent().isEmpty());
         Assertions.assertTrue(provisionOptionalEnrichedDescriptor
                 .getLatestEnrichedDescriptor()
                 .isPresent());
 
         var provisionOptionalBothComponentDescriptor = new ProvisionOperationRequest<>(
-                new DataProduct<>(), true, Optional.of(JsonNodeFactory.instance.objectNode()));
+                new DataProduct<>(), true, Optional.of(JsonNodeFactory.instance.objectNode()), "");
         Assertions.assertTrue(
                 provisionOptionalBothComponentDescriptor.getComponent().isEmpty());
         Assertions.assertTrue(provisionOptionalBothComponentDescriptor
@@ -35,7 +35,7 @@ class ProvisionOperationRequestTest {
                 .isPresent());
 
         var provisionAllPresent = new ProvisionOperationRequest<>(
-                new DataProduct<>(), new OutputPort<>(), true, JsonNodeFactory.instance.objectNode());
+                new DataProduct<>(), new OutputPort<>(), true, JsonNodeFactory.instance.objectNode(), "");
         Assertions.assertTrue(provisionAllPresent.getComponent().isPresent());
         Assertions.assertTrue(provisionAllPresent.getLatestEnrichedDescriptor().isPresent());
     }
